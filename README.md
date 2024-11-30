@@ -1,4 +1,3 @@
 # A Nice Animated Website for Game Companies
-Here is how you can setup this on your pc
 
-the second line
+In this project i am using Nodejs v20.18.0 (npm v10.9.1)
