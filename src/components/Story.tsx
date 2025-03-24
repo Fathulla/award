@@ -5,7 +5,7 @@ import RoundedCorners from "./RoundedComponents";
 import Button from "./Button";
 
 const Story = () => {
-  const frameRef = useRef("null");
+  const frameRef = useRef<HTMLImageElement>(null);
 
   const handleMouseLeave = () => {
     const element = frameRef.current;
@@ -18,7 +18,7 @@ const Story = () => {
     });
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: { clientX: number; clientY: number }) => {
     const { clientX, clientY } = e;
     const element = frameRef.current;
 
@@ -53,7 +53,7 @@ const Story = () => {
         <div className="relative size-full">
           <AnimatedTitle
             title={"The st<b>o</b>ry of <br/> a hidden real<b>m</b>"}
-            sectionId="#story"
+            // sectionId="#story"
             containerClass="mt-5 pointer-event-none mix-blend-difference relative z-10"
           />
 
@@ -84,7 +84,11 @@ const Story = () => {
               laborum fuga pariatur obcaecati minima!
             </p>
 
-            <Button id="realm-button" title="discover prologue" containerClass={"mt-5 "}/>
+            <Button
+              id="realm-button"
+              title="discover prologue"
+              containerClass={"mt-5 "}
+            />
           </div>
         </div>
       </div>

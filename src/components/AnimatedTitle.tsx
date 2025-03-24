@@ -1,9 +1,13 @@
-/* eslint-disable react/prop-types */
 
 import gsap from "gsap";
 import { useEffect, useRef } from "react";
 
-const AnimatedTitle = ({ title, containerClass }) => {
+interface AnimatedTitleProps {
+  title: string;
+  containerClass: string;
+}
+
+const AnimatedTitle = ({ title, containerClass }: AnimatedTitleProps) => {
   const containerRef = useRef(null);
 
   useEffect(() => {

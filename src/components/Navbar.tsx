@@ -10,44 +10,48 @@ const Navbar = () => {
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [isIndicatorActive, setIsIndicatorActive] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [isNavVisible, setIsNavVisible] = useState(true)
+  const [isNavVisible, setIsNavVisible] = useState(true);
 
-  const navContainerRef = useRef(null);
-  const audioElementRef = useRef(null);
+  const navContainerRef = useRef<HTMLDivElement>(null);
+  const audioElementRef = useRef<HTMLAudioElement>(null);
 
-  const {y: currentScrollY} = useWindowScroll()
- 
+  const { y: currentScrollY } = useWindowScroll();
+
   useEffect(() => {
-    if(currentScrollY === 0) {
-      setIsNavVisible(true)
-      navContainerRef.current.classList.remove("floating-nav")
+    if (!navContainerRef.current) return;
+
+    if (currentScrollY === 0) {
+      setIsNavVisible(true);
+      navContainerRef.current.classList.remove("floating-nav");
     } else if (currentScrollY > lastScrollY) {
-      setIsNavVisible(false) 
-      navContainerRef.current.classList.add("floating-nav")
+      setIsNavVisible(false);
+      navContainerRef.current.classList.add("floating-nav");
     } else if (currentScrollY < lastScrollY) {
-      setIsNavVisible(true)
-      navContainerRef.current.classList.add("floating-nav")
+      setIsNavVisible(true);
+      navContainerRef.current.classList.add("floating-nav");
     }
 
-    setLastScrollY(currentScrollY)
-  }, [currentScrollY, lastScrollY])
-
+    setLastScrollY(currentScrollY);
+  }, [currentScrollY, lastScrollY]);
 
   useEffect(() => {
+    if (!navContainerRef.current) return;
+
     gsap.to(navContainerRef.current, {
       y: isNavVisible ? 0 : -100,
       opacity: isNavVisible ? 1 : 0,
-      duration: 0.2
-    })
-  },[isNavVisible])
+      duration: 0.2,
+    });
+  }, [isNavVisible]);
 
   const toggleAudioIndicator = () => {
     setIsAudioPlaying((prev) => !prev);
-
     setIsIndicatorActive((prev) => !prev);
   };
 
   useEffect(() => {
+    if (!audioElementRef.current) return;
+
     if (isAudioPlaying) {
       audioElementRef.current.play();
     } else {

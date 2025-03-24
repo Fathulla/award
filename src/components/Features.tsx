@@ -1,14 +1,16 @@
 import { useRef, useState } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 
-/* eslint-disable react/prop-types */
+interface BentoTiltProps {
+  children: React.ReactNode;
+  className?: string;
+}
 
-const BentoTilt = ({ children, className = "" }) => {
+const BentoTilt = ({ children, className = "" }: BentoTiltProps) => {
   const [transformStyle, setTransformStyle] = useState("");
+  const itemRef = useRef<HTMLDivElement>(null);
 
-  const itemRef = useRef();
-
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!itemRef.current) return;
 
     const { left, top, width, height } =
@@ -21,12 +23,11 @@ const BentoTilt = ({ children, className = "" }) => {
     const tiltY = (relativeY - 0.5) * -5;
 
     const newTransform = `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(0.98, 0.98, 0.98)`;
-
     setTransformStyle(newTransform);
   };
 
   const handleMouseLeave = () => {
-    setTransformStyle(" ");
+    setTransformStyle("");
   };
 
   return (
@@ -42,14 +43,20 @@ const BentoTilt = ({ children, className = "" }) => {
   );
 };
 
-const BentoCard = ({ src, title, description }) => {
+interface BentoCardProps {
+  src: string;
+  title: React.ReactNode;
+  description?: string;
+}
+
+const BentoCard = ({ src, title, description }: BentoCardProps) => {
   return (
     <div className="relative size-full">
       <video
         src={src}
         muted
         loop
-        autoPlay
+        autoPlay={true}
         className="absolute left-0 top-0 size-full object-cover object-center"
       />
       <div className="relative z-10 flex size-full flex-col justify-between p-5 text-blue-50">

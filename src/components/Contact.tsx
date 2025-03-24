@@ -1,7 +1,11 @@
+import Button from "./Button"
 
-import Button from "./Button.jsx";
-// eslint-disable-next-line react/prop-types
-const ImageClipBox = ({src, clipClass}) => {
+interface ImageClipBoxProps {
+  src: string;
+  clipClass: string;
+}
+
+const ImageClipBox = ({src, clipClass}: ImageClipBoxProps) => {
   return (
       <div className={clipClass}>
         <img src={src} alt="contact"/>
